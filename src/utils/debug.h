@@ -5,6 +5,8 @@
 
 #include "napa/log.h"
 
+#define DEBUG_NAPA
+
 #if defined(DEBUG_NAPA)
     #define NAPA_DEBUG(section, format, ...) LOG_DEBUG(section, format, ##__VA_ARGS__)
 #else
