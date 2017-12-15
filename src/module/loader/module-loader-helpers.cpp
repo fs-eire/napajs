@@ -124,14 +124,18 @@ void module_loader_helpers::SetupModuleContext(v8::Local<v8::Context> parentCont
 
     NAPA_DEBUG("ModuleLoaderHelpers", "Start to setup module object \"%s\".", path.c_str());
     SetupModuleObjects(parentContext, exports, path);
-    NAPA_DEBUG("ModuleLoaderHelpers", "Start to setup module path \"%s\".", path.c_str());
     if (path.empty()) {
-        SetupModulePath(exports, GetCurrentWorkingDirectory(), std::string());
+        std::string thisPath = GetCurrentWorkingDirectory();
+        NAPA_DEBUG("ModuleLoaderHelpers", "Start to setup module path \"%s\": \"%s\".", path.c_str(), thisPath.c_str());
+        SetupModulePath(exports, thisPath, std::string());
     } else {
         filesystem::Path current(path);
-        SetupModulePath(exports, current.Parent().Normalize().String(), path);
+        std::string thisPath = current.Parent().Normalize().String();
+        NAPA_DEBUG("ModuleLoaderHelpers", "Start to setup module path \"%s\": \"%s\".", path.c_str(), thisPath.c_str());
+        SetupModulePath(exports, thisPath, path);
     }
 
+    NAPA_DEBUG("ModuleLoaderHelpers", "Start to attach to global \"%s\".", path.c_str());
     auto global = parentContext->Global()->Get(parentContext, v8_helpers::MakeV8String(isolate, "global")).ToLocalChecked()->ToObject();
     (void)exports->Set(v8_helpers::MakeV8String(isolate, "global"), global);
 }

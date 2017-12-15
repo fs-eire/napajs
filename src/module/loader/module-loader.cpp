@@ -343,6 +343,7 @@ void ModuleLoader::ModuleLoaderImpl::LoadBinaryCoreModule(
     module_loader_helpers::SetupModuleContext(context, moduleContext, module_loader_helpers::GetNapaDllPath());
 
     // Put it into module resolver to prevent from resolving as user module.
+    NAPA_DEBUG("ModuleLoader", "Start to setup as core module \"%s\".", name);
     _resolver.SetAsCoreModule(name);
 
     NAPA_DEBUG("ModuleLoader", "Start to export module \"%s\".", name);
