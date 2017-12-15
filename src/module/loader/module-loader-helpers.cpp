@@ -9,6 +9,7 @@
 
 #include <napa/log.h>
 #include <napa/v8-helpers.h>
+#include <utils/debug.h>
 
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
@@ -121,7 +122,9 @@ void module_loader_helpers::SetupModuleContext(v8::Local<v8::Context> parentCont
 
     auto exports = moduleContext->Global();
 
+    NAPA_DEBUG("ModuleLoaderHelpers", "Start to setup module object \"%s\".", path.c_str());
     SetupModuleObjects(parentContext, exports, path);
+    NAPA_DEBUG("ModuleLoaderHelpers", "Start to setup module path \"%s\".", path.c_str());
     if (path.empty()) {
         SetupModulePath(exports, GetCurrentWorkingDirectory(), std::string());
     } else {
@@ -206,12 +209,14 @@ namespace {
 
         auto context = isolate->GetCurrentContext();
 
+        NAPA_DEBUG("ModuleLoaderHelpers", "Start to setup module object. id=\"%s\".", id.c_str());
         auto module = v8::Object::New(isolate);
         (void)module->CreateDataProperty(context, v8_helpers::MakeV8String(isolate, "exports"), v8::Object::New(isolate));
         (void)module->CreateDataProperty(context, v8_helpers::MakeV8String(isolate, "paths"), v8::Array::New(isolate));
         (void)module->CreateDataProperty(context, v8_helpers::MakeV8String(isolate, "id"), v8_helpers::MakeV8String(isolate, id));
         (void)module->CreateDataProperty(context, v8_helpers::MakeV8String(isolate, "filename"), v8_helpers::MakeV8String(isolate, id));
 
+        NAPA_DEBUG("ModuleLoaderHelpers", "Start to setup module.require. id=\"%s\".", id.c_str());
         // Setup 'module.require'.
         if (!parentContext.IsEmpty()) {
             auto requireKey = v8_helpers::MakeV8String(isolate, "require");
