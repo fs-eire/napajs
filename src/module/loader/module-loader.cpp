@@ -325,6 +325,8 @@ void ModuleLoader::ModuleLoaderImpl::LoadBinaryCoreModule(
         const char* name,
         bool isBuiltInModule,
         const napa::module::ModuleInitializer& initializer) {
+    NAPA_DEBUG("ModuleLoader", "Start to load binary core module \"%s\".", name);
+
     auto isolate = v8::Isolate::GetCurrent();
     v8::HandleScope scope(isolate);
 
@@ -337,11 +339,13 @@ void ModuleLoader::ModuleLoaderImpl::LoadBinaryCoreModule(
     moduleContext->SetSecurityToken(v8::Undefined(isolate));
     v8::Context::Scope contextScope(moduleContext);
 
+    NAPA_DEBUG("ModuleLoader", "Start to setup module context \"%s\".", name);
     module_loader_helpers::SetupModuleContext(context, moduleContext, module_loader_helpers::GetNapaDllPath());
 
     // Put it into module resolver to prevent from resolving as user module.
     _resolver.SetAsCoreModule(name);
 
+    NAPA_DEBUG("ModuleLoader", "Start to export module \"%s\".", name);
     auto module = module_loader_helpers::ExportModule(moduleContext->Global(), initializer);
 
     if (isBuiltInModule) {
