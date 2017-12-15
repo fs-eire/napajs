@@ -112,12 +112,23 @@ private:
 };
 
 void ModuleLoader::CreateModuleLoader() {
-    auto moduleLoader = reinterpret_cast<ModuleLoader*>(zone::WorkerContext::Get(zone::WorkerContextItem::MODULE_LOADER));
+    NAPA_DEBUG("ModuleLoader", "Start to create module loader.");
+    auto ptr = zone::WorkerContext::Get(zone::WorkerContextItem::MODULE_LOADER);
+
+    NAPA_DEBUG("ModuleLoader", "Pointer of MODULE_LOADER = %zu.", (size_t)(ptr));
+    
+    auto moduleLoader = reinterpret_cast<ModuleLoader*>(ptr);
     if (moduleLoader == nullptr) {
+        NAPA_DEBUG("ModuleLoader", "Start to create a new ModuleLoader.");
         moduleLoader = new ModuleLoader();
+
+        NAPA_DEBUG("ModuleLoader", "Pointer of ModuleLoader = %zu.", (size_t)(moduleLoader));
+        
         zone::WorkerContext::Set(zone::WorkerContextItem::MODULE_LOADER, moduleLoader);
 
         // Now, Javascript core module's 'require' can find module loader instance correctly.
+
+        NAPA_DEBUG("ModuleLoader", "Start to bootstrap.");
         moduleLoader->_impl->Bootstrap();
     }
     NAPA_DEBUG("ModuleLoader", "Module loader is created successfully.");
