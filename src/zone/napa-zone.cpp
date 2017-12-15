@@ -78,14 +78,20 @@ NapaZone::NapaZone(const settings::ZoneSettings& settings) :
 
     // Create the zone's scheduler.
     _scheduler = std::make_unique<Scheduler>(_settings, [this](WorkerId id) {
+
+        NAPA_DEBUG("NapaZone", "Worker \"%u\" start to setup.", (uint32_t)(id));
+
         // Initialize the worker context TLS data
         INIT_WORKER_CONTEXT();
+        NAPA_DEBUG("NapaZone", "Worker \"%u\" finished INIT_WORKER_CONTEXT.", (uint32_t)(id));
 
         // Zone instance into TLS.
         WorkerContext::Set(WorkerContextItem::ZONE, reinterpret_cast<void*>(this));
+        NAPA_DEBUG("NapaZone", "Worker \"%u\" finished set ZONE.", (uint32_t)(id));
 
         // Worker Id into TLS.
         WorkerContext::Set(WorkerContextItem::WORKER_ID, reinterpret_cast<void*>(static_cast<uintptr_t>(id)));
+        NAPA_DEBUG("NapaZone", "Worker \"%u\" finished set WORKER_ID.", (uint32_t)(id));
 
         // Load module loader and built-in modules of require, console and etc.
         CREATE_MODULE_LOADER();
