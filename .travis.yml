@@ -52,7 +52,7 @@ matrix:
   # Node Stable (9.3)   Linux (Trusty)      G++6.3.0
   - os: linux
     dist: trusty
-    node_js: '9.2'
+    node_js: '9.3'
     compiler: g++-6
     addons:
       apt:
