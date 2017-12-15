@@ -137,6 +137,7 @@ void module_loader_helpers::SetupModuleContext(v8::Local<v8::Context> parentCont
 
     NAPA_DEBUG("ModuleLoaderHelpers", "Start to attach to global \"%s\".", path.c_str());
     auto global = parentContext->Global()->Get(parentContext, v8_helpers::MakeV8String(isolate, "global")).ToLocalChecked()->ToObject();
+    NAPA_DEBUG("ModuleLoaderHelpers", "Start global object \"%s\".", path.c_str());
     (void)exports->Set(v8_helpers::MakeV8String(isolate, "global"), global);
 }
 

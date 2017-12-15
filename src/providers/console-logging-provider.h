@@ -4,6 +4,7 @@
 #pragma once
 
 #include <napa/providers/logging.h>
+#include <platform/process.h>
 
 #include <stdio.h>
 
@@ -22,9 +23,9 @@ namespace providers {
             int line,
             const char* message) override {
             if (section == nullptr || section[0] == '\0') {
-                printf("%s [%s:%d]\n", message, file, line);
+                printf("[%u]%s [%s:%d]\n", napa::platform::Gettid(), message, file, line);
             } else {
-                printf("[%s] %s [%s:%d]\n", section, message, file, line);
+                printf("[%u][%s] %s [%s:%d]\n", napa::platform::Gettid(), section, message, file, line);
             }
         }
 
