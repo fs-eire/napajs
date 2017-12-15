@@ -164,6 +164,7 @@ void ModuleLoader::ModuleLoaderImpl::Bootstrap() {
 
     // 'require' needs to be available in top-level context before core-module is loaded.
     SetupRequire(context);
+    NAPA_DEBUG("ModuleLoader", "'require' is loaded.");
 
     // Initialize core modules listed in core-modules.h.
     INITIALIZE_CORE_MODULES(LoadBinaryCoreModule)

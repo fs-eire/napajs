@@ -15,6 +15,7 @@
 
 #define INITIALIZE_CORE_MODULE(registerer, name, built_in, init)                                        \
     do {                                                                                                \
+        NAPA_DEBUG("ModuleLoader", "Start to initialize core module \"%s\".", name);                    \
         napa::module::ModuleInitializer initializer = [](auto exports, auto module) {                   \
             return reinterpret_cast<napa::module::ModuleInitializer>(init)(exports, module);            \
         };                                                                                              \
