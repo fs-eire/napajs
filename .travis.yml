@@ -29,4 +29,8 @@ install:
 - npm install --no-fetch
 script:
 - npm test
+- |
+  if [ -f ./core ]; then
+    gdb -ex 'thread apply all bt' $(which node) core
+  fi
 - npm run unittest
