@@ -31,6 +31,9 @@ install:
 script:
 - npm test
 - npm run unittest
+- ls
+- ls -a
+- find ./ -name "core"
 - |
   if [ -f ./core ]; then
     gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./core
