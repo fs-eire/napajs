@@ -32,6 +32,6 @@ script:
 - npm test
 - |
   if [ -f ./core ]; then
-    gdb --batch --quite -ex "thread apply all bt full" -ex "quit" $(which node) core
+    gdb --batch --quite -ex "thread apply all bt full" -ex "quit" $(which node) ./core
   fi
 - npm run unittest
