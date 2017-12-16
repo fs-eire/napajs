@@ -35,10 +35,10 @@ script:
 - ls -a
 - find ./ -name "core"
 - |
-  if [ -f ./core ]; then
+  if [ -e ./core ]; then
     gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./core
   fi
 - |
-  if [ -f ./lib/core ]; then
+  if [ -e ./lib/core ]; then
     gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./lib/core
   fi
