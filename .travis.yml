@@ -28,7 +28,7 @@ before_install:
   fi
 install:
 - npm install cmake-js -g
-- npm install --no-fetch
+- npm install --no-fetch --debug
 script:
 - npm test
 - npm run unittest
