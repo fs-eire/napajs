@@ -30,8 +30,12 @@ install:
 - npm install --no-fetch
 script:
 - npm test
+- npm run unittest
 - |
   if [ -f ./core ]; then
     gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./core
   fi
-- npm run unittest
+- |
+  if [ -f ./lib/core ]; then
+    gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./lib/core
+  fi
