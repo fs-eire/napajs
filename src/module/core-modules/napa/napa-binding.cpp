@@ -217,37 +217,37 @@ void binding::Init(v8::Local<v8::Object> exports, v8::Local<v8::Object> module) 
     // Register napa binding in worker context.
     RegisterBinding(module);
 
-    AllocatorDebuggerWrap::Init();
-    AllocatorWrap::Init();
-    CallContextWrap::Init();
-    LockWrap::Init();
-    MetricWrap::Init();
-    SharedPtrWrap::Init();
-    StoreWrap::Init();
-    TransportContextWrapImpl::Init();
+    // AllocatorDebuggerWrap::Init();
+    // AllocatorWrap::Init();
+    // CallContextWrap::Init();
+    // LockWrap::Init();
+    // MetricWrap::Init();
+    // SharedPtrWrap::Init();
+    // StoreWrap::Init();
+    // TransportContextWrapImpl::Init();
     ZoneWrap::Init();
 
-    NAPA_EXPORT_OBJECTWRAP(exports, "AllocatorDebuggerWrap", AllocatorDebuggerWrap);
-    NAPA_EXPORT_OBJECTWRAP(exports, "AllocatorWrap", AllocatorWrap);
-    NAPA_EXPORT_OBJECTWRAP(exports, "CallContextWrap", CallContextWrap);
-    NAPA_EXPORT_OBJECTWRAP(exports, "LockWrap", LockWrap);
-    NAPA_EXPORT_OBJECTWRAP(exports, "MetricWrap", MetricWrap);
-    NAPA_EXPORT_OBJECTWRAP(exports, "SharedPtrWrap", SharedPtrWrap);
-    NAPA_EXPORT_OBJECTWRAP(exports, "TransportContextWrap", TransportContextWrapImpl);
+    // NAPA_EXPORT_OBJECTWRAP(exports, "AllocatorDebuggerWrap", AllocatorDebuggerWrap);
+    // NAPA_EXPORT_OBJECTWRAP(exports, "AllocatorWrap", AllocatorWrap);
+    // NAPA_EXPORT_OBJECTWRAP(exports, "CallContextWrap", CallContextWrap);
+    // NAPA_EXPORT_OBJECTWRAP(exports, "LockWrap", LockWrap);
+    // NAPA_EXPORT_OBJECTWRAP(exports, "MetricWrap", MetricWrap);
+    // NAPA_EXPORT_OBJECTWRAP(exports, "SharedPtrWrap", SharedPtrWrap);
+    // NAPA_EXPORT_OBJECTWRAP(exports, "TransportContextWrap", TransportContextWrapImpl);
 
     NAPA_SET_METHOD(exports, "createZone", CreateZone);
-    NAPA_SET_METHOD(exports, "getZone", GetZone);
-    NAPA_SET_METHOD(exports, "getCurrentZone", GetCurrentZone);
+    // NAPA_SET_METHOD(exports, "getZone", GetZone);
+    // NAPA_SET_METHOD(exports, "getCurrentZone", GetCurrentZone);
 
-    NAPA_SET_METHOD(exports, "createStore", CreateStore);
-    NAPA_SET_METHOD(exports, "getOrCreateStore", GetOrCreateStore);
-    NAPA_SET_METHOD(exports, "getStore", GetStore);
-    NAPA_SET_METHOD(exports, "getStoreCount", GetStoreCount);
+    // NAPA_SET_METHOD(exports, "createStore", CreateStore);
+    // NAPA_SET_METHOD(exports, "getOrCreateStore", GetOrCreateStore);
+    // NAPA_SET_METHOD(exports, "getStore", GetStore);
+    // NAPA_SET_METHOD(exports, "getStoreCount", GetStoreCount);
 
-    NAPA_SET_METHOD(exports, "createLock", CreateLock);
+    // NAPA_SET_METHOD(exports, "createLock", CreateLock);
     
-    NAPA_SET_METHOD(exports, "getCrtAllocator", GetCrtAllocator);
-    NAPA_SET_METHOD(exports, "getDefaultAllocator", GetDefaultAllocator);
+    // NAPA_SET_METHOD(exports, "getCrtAllocator", GetCrtAllocator);
+    // NAPA_SET_METHOD(exports, "getDefaultAllocator", GetDefaultAllocator);
 
-    NAPA_SET_METHOD(exports, "log", Log);
+    // NAPA_SET_METHOD(exports, "log", Log);
 }
