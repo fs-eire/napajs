@@ -36,6 +36,24 @@ matrix:
         - cmake
     env:
     - COMPILER_OVERRIDE="CXX=g++-5 CC=gcc-5"
+  - os: linux
+    dist: trusty
+    group: deprecated-2017Q4
+    node_js: '9.3'
+    compiler: g++-5
+    addons:
+      apt:
+        # The apt source 'ubuntu-toolchain-r-test' is for GCC 5+
+        # The apt source 'george-edison55-precise-backports' is for CMake 3.2+
+        sources:
+        - ubuntu-toolchain-r-test
+        - george-edison55-precise-backports
+        packages:
+        - g++-5
+        - cmake-data
+        - cmake
+    env:
+    - COMPILER_OVERRIDE="CXX=g++-5 CC=gcc-5"
   # Node Stable (9.3)   Linux (Trusty)      G++6.3.0
   - os: linux
     dist: trusty
