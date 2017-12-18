@@ -22,7 +22,7 @@ matrix:
   - os: linux
     dist: trusty
     node_js: '9.3'
-    compiler: g++-6
+    compiler: g++-5
     addons:
       apt:
         # The apt source 'ubuntu-toolchain-r-test' is for GCC 5+
@@ -61,7 +61,7 @@ install:
 - npm install cmake-js -g
 - npm install --no-fetch --debug
 script:
-- npm test
+- node -e "require('.').zone.create('zone4');"
 - npm run unittest
 - ls
 - ls -a
