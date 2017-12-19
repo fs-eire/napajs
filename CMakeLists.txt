@@ -20,7 +20,7 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN)
 
 # Build napa shared library.
-add_subdirectory(src)
+# add_subdirectory(src)
 
 if (CMAKE_JS_VERSION)
     # Build napa addon for node.

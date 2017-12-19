@@ -2,12 +2,8 @@
 file(GLOB SOURCE_FILES 
     "addon.cpp"
     "node-zone-delegates.cpp"
-    "${PROJECT_SOURCE_DIR}/src/platform/filesystem.cpp"
-    "${PROJECT_SOURCE_DIR}/src/platform/os.cpp"
-    "${PROJECT_SOURCE_DIR}/src/zone/call-context.cpp"
-    "${PROJECT_SOURCE_DIR}/src/zone/call-task.cpp"
-    "${PROJECT_SOURCE_DIR}/src/zone/eval-task.cpp"
-    "${PROJECT_SOURCE_DIR}/src/zone/terminable-task.cpp"
+    "${PROJECT_SOURCE_DIR}/src/api/capi.cpp"
+    "${PROJECT_SOURCE_DIR}/src/settings/settings-parser.cpp"
     "${PROJECT_SOURCE_DIR}/src/module/core-modules/napa/*.cpp")
 
 # The addon name
@@ -33,6 +29,8 @@ set_target_properties(${TARGET_NAME} PROPERTIES
 # Include directories
 target_include_directories(${TARGET_NAME} PRIVATE
     ${CMAKE_JS_INC}
+    ${PROJECT_SOURCE_DIR}/third-party
+    ${PROJECT_SOURCE_DIR}/inc
     ${PROJECT_SOURCE_DIR}/src
     ${PROJECT_SOURCE_DIR}/src/module/core-modules/napa)
 
@@ -41,5 +39,4 @@ target_compile_definitions(${TARGET_NAME} PRIVATE BUILDING_NODE_EXTENSION NAPA_B
 
 # Link libraries
 target_link_libraries(${TARGET_NAME} PRIVATE
-    ${PROJECT_NAME}
     ${CMAKE_JS_LIB})
