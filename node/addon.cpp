@@ -33,20 +33,20 @@ void Initialize(const v8::FunctionCallbackInfo<v8::Value>& args) {
     }
 }
 
-void Shutdown(const v8::FunctionCallbackInfo<v8::Value>&) {
-    napa::Shutdown();
-}
+// void Shutdown(const v8::FunctionCallbackInfo<v8::Value>&) {
+//     napa::Shutdown();
+// }
 
 void InitAll(v8::Local<v8::Object> exports, v8::Local<v8::Object> module) {
     // Init node zone before initialize modules.
-    napa::zone::NodeZone::Init(napa::node_zone::Broadcast, napa::node_zone::Execute);
+    // napa::zone::NodeZone::Init(napa::node_zone::Broadcast, napa::node_zone::Execute);
 
     // Init core napa modules.
     napa::module::binding::Init(exports, module);
 
     // Only node addon can initialize/shutdown napa.
     NAPA_SET_METHOD(exports, "initialize", Initialize);
-    NAPA_SET_METHOD(exports, "shutdown", Shutdown);
+    //NAPA_SET_METHOD(exports, "shutdown", Shutdown);
 }
 
 NAPA_MODULE(addon, InitAll)

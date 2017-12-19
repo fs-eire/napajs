@@ -25,5 +25,5 @@ add_subdirectory(src)
 if (CMAKE_JS_VERSION)
     # Build napa addon for node.
     add_subdirectory(node)
-    add_subdirectory(test/module/addon)
+    #add_subdirectory(test/module/addon)
 endif()

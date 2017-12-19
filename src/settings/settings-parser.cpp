@@ -3,6 +3,7 @@
 
 #include "settings-parser.h"
 
+#define NAPA_LOG_DISABLED
 #include <napa/log.h>
 
 // Open source header only library for argument parsing.
