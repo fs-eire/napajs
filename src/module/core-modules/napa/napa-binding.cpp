@@ -50,20 +50,20 @@ static void CreateZone(const v8::FunctionCallbackInfo<v8::Value>& args) {
     CHECK_ARG(isolate, args[0]->IsString(), "first argument to createZone must be a string");
     v8::String::Utf8Value zoneId(args[0]->ToString());
 
-    std::stringstream ss;
-    if ((args.Length() > 1) && (!args[1]->IsUndefined())) {
-        CHECK_ARG(isolate, args[1]->IsObject(), "second argument to createZone must be an object");
-        auto settingsObj = args[1]->ToObject(context).ToLocalChecked();
+    // std::stringstream ss;
+    // if ((args.Length() > 1) && (!args[1]->IsUndefined())) {
+    //     CHECK_ARG(isolate, args[1]->IsObject(), "second argument to createZone must be an object");
+    //     auto settingsObj = args[1]->ToObject(context).ToLocalChecked();
 
-        auto settingsMap = napa::v8_helpers::V8ObjectToMap<std::string>(isolate, settingsObj);
+    //     auto settingsMap = napa::v8_helpers::V8ObjectToMap<std::string>(isolate, settingsObj);
 
-        for (const auto& kv : settingsMap) {
-            ss << " --" << kv.first << " " << kv.second;
-        }
-    }
+    //     for (const auto& kv : settingsMap) {
+    //         ss << " --" << kv.first << " " << kv.second;
+    //     }
+    // }
 
     try {
-        auto zoneProxy = std::make_unique<napa::Zone>(*zoneId, ss.str());
+        auto zoneProxy = std::make_unique<napa::Zone>(*zoneId, "");
         args.GetReturnValue().Set(ZoneWrap::NewInstance(std::move(zoneProxy)));
     } catch (const std::exception& ex) {
         JS_FAIL(isolate, ex.what());
@@ -215,7 +215,7 @@ static void Log(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
 void binding::Init(v8::Local<v8::Object> exports, v8::Local<v8::Object> module) {
     // Register napa binding in worker context.
-    RegisterBinding(module);
+    //RegisterBinding(module);
 
     // AllocatorDebuggerWrap::Init();
     // AllocatorWrap::Init();
@@ -225,7 +225,7 @@ void binding::Init(v8::Local<v8::Object> exports, v8::Local<v8::Object> module) 
     // SharedPtrWrap::Init();
     // StoreWrap::Init();
     // TransportContextWrapImpl::Init();
-    ZoneWrap::Init();
+    //ZoneWrap::Init();
 
     // NAPA_EXPORT_OBJECTWRAP(exports, "AllocatorDebuggerWrap", AllocatorDebuggerWrap);
     // NAPA_EXPORT_OBJECTWRAP(exports, "AllocatorWrap", AllocatorWrap);
