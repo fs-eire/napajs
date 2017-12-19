@@ -80,10 +80,10 @@ install:
 - npm install --no-fetch --debug || echo plusfailed
 script:
 - node -e "require('.').zone.create('zone4');"
-- npm run unittest
-- ls
-- ls -a
-- find ./ -name "core"
+#- npm run unittest
+#- ls
+#- ls -a
+#- find ./ -name "core"
 - |
   if [ -e ./core ]; then
     gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./core
