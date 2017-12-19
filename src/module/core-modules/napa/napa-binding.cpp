@@ -50,17 +50,17 @@ static void CreateZone(const v8::FunctionCallbackInfo<v8::Value>& args) {
     CHECK_ARG(isolate, args[0]->IsString(), "first argument to createZone must be a string");
     v8::String::Utf8Value zoneId(args[0]->ToString());
 
-    // std::stringstream ss;
-    // if ((args.Length() > 1) && (!args[1]->IsUndefined())) {
-    //     CHECK_ARG(isolate, args[1]->IsObject(), "second argument to createZone must be an object");
-    //     auto settingsObj = args[1]->ToObject(context).ToLocalChecked();
+    std::stringstream ss;
+    if ((args.Length() > 1) && (!args[1]->IsUndefined())) {
+        CHECK_ARG(isolate, args[1]->IsObject(), "second argument to createZone must be an object");
+        auto settingsObj = args[1]->ToObject(context).ToLocalChecked();
 
-    //     auto settingsMap = napa::v8_helpers::V8ObjectToMap<std::string>(isolate, settingsObj);
+        auto settingsMap = napa::v8_helpers::V8ObjectToMap<std::string>(isolate, settingsObj);
 
-    //     for (const auto& kv : settingsMap) {
-    //         ss << " --" << kv.first << " " << kv.second;
-    //     }
-    // }
+        for (const auto& kv : settingsMap) {
+            ss << " --" << kv.first << " " << kv.second;
+        }
+    }
 
     try {
         auto zoneProxy = std::make_unique<napa::Zone>(*zoneId, "");
