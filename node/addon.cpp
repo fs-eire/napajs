@@ -1,13 +1,15 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+#include <node.h>
+#include <node_object_wrap.h>
+
 #include "napa-binding.h"
-#include "node-zone-delegates.h"
+#include <string>
+#include <sstream>
 
-#include <napa/module.h>
+
 #include <napa/zone.h>
-
-#include <zone/node-zone.h>
 
 void Initialize(const v8::FunctionCallbackInfo<v8::Value>& args) {
     auto isolate = v8::Isolate::GetCurrent();
@@ -18,11 +20,11 @@ void Initialize(const v8::FunctionCallbackInfo<v8::Value>& args) {
         // No settings provided.
         napa::InitializeFromConsole(0, nullptr);
     } else {
-        CHECK_ARG(isolate, args[0]->IsObject(), "first argument to initialize must be an object");
+        //CHECK_ARG(isolate, args[0]->IsObject(), "first argument to initialize must be an object");
 
         auto settingsObj = args[0]->ToObject(context).ToLocalChecked();
 
-        auto settingsMap = napa::v8_helpers::V8ObjectToMap<std::string>(isolate, settingsObj);
+        auto settingsMap = napa::v8_helpers::V8ObjectToMap(isolate, settingsObj);
 
         std::stringstream ss;
         for (const auto& kv : settingsMap) {
@@ -45,8 +47,8 @@ void InitAll(v8::Local<v8::Object> exports, v8::Local<v8::Object> module) {
     napa::module::binding::Init(exports, module);
 
     // Only node addon can initialize/shutdown napa.
-    NAPA_SET_METHOD(exports, "initialize", Initialize);
+    NODE_SET_METHOD(exports, "initialize", Initialize);
     //NAPA_SET_METHOD(exports, "shutdown", Shutdown);
 }
 
-NAPA_MODULE(addon, InitAll)
+NODE_MODULE(addon, InitAll)

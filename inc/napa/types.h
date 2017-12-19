@@ -111,7 +111,9 @@ typedef struct {
 
 #ifdef __cplusplus
 
-#include <napa/transport/transport-context.h>
+//#include <napa/transport/transport-context.h>
+
+namespace napa { namespace transport { class TransportContext{};}}
 #include <memory>
 #include <string>
 #include <vector>

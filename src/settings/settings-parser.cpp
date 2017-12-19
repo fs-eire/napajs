@@ -3,9 +3,6 @@
 
 #include "settings-parser.h"
 
-#define NAPA_LOG_DISABLED
-#include <napa/log.h>
-
 // Open source header only library for argument parsing.
 // https://github.com/Taywee/args
 #include <args/args.hxx>
@@ -24,7 +21,7 @@ bool settings::Parse(const std::vector<std::string>& args, PlatformSettings& set
         parser.ParseArgs(args);
     }
     catch (const std::exception& ex) {
-        LOG_ERROR("Settings", "Failed to parse platform settings. Error: %s", ex.what());
+        //LOG_ERROR("Settings", "Failed to parse platform settings. Error: %s", ex.what());
         return false;
     }
 
@@ -52,12 +49,12 @@ bool settings::Parse(const std::vector<std::string>& args, ZoneSettings& setting
         parser.ParseArgs(args);
     }
     catch (const std::exception& ex) {
-        LOG_ERROR("Settings", "Failed to parse zone settings. Error: %s", ex.what());
+        //LOG_ERROR("Settings", "Failed to parse zone settings. Error: %s", ex.what());
         return false;
     }
 
     if (workers) {
-        NAPA_ASSERT(workers.Get() > 0, "The number of workers must be greater than 0");
+        //NAPA_ASSERT(workers.Get() > 0, "The number of workers must be greater than 0");
         settings.workers = workers.Get();
     }
 
@@ -74,7 +71,7 @@ bool settings::Parse(const std::vector<std::string>& args, ZoneSettings& setting
     }
 
     if (maxStackSize) {
-        NAPA_ASSERT(maxStackSize.Get() > 0, "The maximum allowed stack size must be greater than 0");
+        //NAPA_ASSERT(maxStackSize.Get() > 0, "The maximum allowed stack size must be greater than 0");
         settings.maxStackSize = maxStackSize.Get();
     }
 

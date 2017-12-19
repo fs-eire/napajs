@@ -5,16 +5,10 @@
 
 #include <napa/capi.h>
 
-#include <providers/providers.h>
 #include <settings/settings-parser.h>
-#include <utils/debug.h>
-#include <v8/v8-common.h>
-#include <zone/napa-zone.h>
-#include <zone/node-zone.h>
-#include <zone/worker-context.h>
+#include <zone/zone.h>
 
-#include <napa/log.h>
-
+#include <memory>
 #include <atomic>
 #include <fstream>
 #include <sstream>
@@ -35,19 +29,19 @@ struct napa_zone {
 };
 
 napa_zone_handle napa_zone_create(napa_string_ref id) {
-    NAPA_ASSERT(_initialized, "Napa wasn't initialized");
+    //NAPA_ASSERT(_initialized, "Napa wasn't initialized");
 
     // The actual zone is created upon initialization.
     return new napa_zone { NAPA_STRING_REF_TO_STD_STRING(id), nullptr };
 }
 
 napa_result_code napa_zone_init(napa_zone_handle handle, napa_string_ref settings) {
-    NAPA_ASSERT(_initialized, "Napa platform wasn't initialized");
-    NAPA_ASSERT(handle, "Zone handle is null");
+    //NAPA_ASSERT(_initialized, "Napa platform wasn't initialized");
+    //NAPA_ASSERT(handle, "Zone handle is null");
 
     settings::ZoneSettings zoneSettings;
     if (!napa::settings::ParseFromString(NAPA_STRING_REF_TO_STD_STRING(settings), zoneSettings)) {
-        NAPA_DEBUG("Api", "Failed to parse zone settings: %s", settings.data);
+        //NAPA_DEBUG("Api", "Failed to parse zone settings: %s", settings.data);
         return NAPA_RESULT_SETTINGS_PARSER_ERROR;
     }
 
@@ -66,8 +60,8 @@ napa_result_code napa_zone_init(napa_zone_handle handle, napa_string_ref setting
 }
 
 napa_result_code napa_zone_release(napa_zone_handle handle) {
-    NAPA_ASSERT(_initialized, "Napa platform wasn't initialized");
-    NAPA_ASSERT(handle, "Zone handle is null");
+    //NAPA_ASSERT(_initialized, "Napa platform wasn't initialized");
+    //NAPA_ASSERT(handle, "Zone handle is null");
 
     handle->zone = nullptr;
     delete handle;
@@ -89,14 +83,14 @@ template<class T, size_t N>
 constexpr size_t size(T(&)[N]) { return N; }
 
 const char* napa_result_code_to_string(napa_result_code code) {
-    NAPA_ASSERT(code >= 0, "result code out of range (%d)", code);
-    NAPA_ASSERT(static_cast<size_t>(code) < size(NAPA_REPONSE_CODE_STRINGS), "result code out of range (%d)", code);
+    //NAPA_ASSERT(code >= 0, "result code out of range (%d)", code);
+    //NAPA_ASSERT(static_cast<size_t>(code) < size(NAPA_REPONSE_CODE_STRINGS), "result code out of range (%d)", code);
 
     return NAPA_REPONSE_CODE_STRINGS[code];
 }
 
 napa_result_code napa_initialize(napa_string_ref settings) {
-    NAPA_ASSERT(!_initialized, "Napa platform was already initialized");
+    //NAPA_ASSERT(!_initialized, "Napa platform was already initialized");
 
     if (!napa::settings::ParseFromString(NAPA_STRING_REF_TO_STD_STRING(settings), _platformSettings)) {
         return NAPA_RESULT_SETTINGS_PARSER_ERROR;
@@ -108,7 +102,7 @@ napa_result_code napa_initialize(napa_string_ref settings) {
 }
 
 napa_result_code napa_initialize_from_console(int argc, const char* argv[]) {
-    NAPA_ASSERT(!_initialized, "Napa platform was already initialized");
+    //NAPA_ASSERT(!_initialized, "Napa platform was already initialized");
 
     if (!napa::settings::ParseFromConsole(argc, argv, _platformSettings)) {
         return NAPA_RESULT_SETTINGS_PARSER_ERROR;
