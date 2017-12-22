@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-import * as transport from "../transport";
-
 /// <summary> Describes the available settings for customizing a zone. </summary>
 export interface ZoneSettings {
 
@@ -60,7 +58,7 @@ export interface Result {
     readonly payload : string;
 
     /// <summary> Transport context carries additional information needed to unmarshall. </summary>
-    readonly transportContext : transport.TransportContext;
+    //readonly transportContext : transport.TransportContext;
 }
 
 /// <summary>

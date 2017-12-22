@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 let binding = require('../binding');
-import { log } from '../log';
 
 // This variable is either defined by napa runtime, or not defined (hence node runtime)
 declare var __in_napa: boolean;
@@ -29,7 +28,7 @@ let _platformSettings: PlatformSettings = {};
 export function setPlatformSettings(settings: PlatformSettings) {
     if (!_initializationNeeded) {
         // If we don't need to initialize we can't set platform settings.
-        log.err("Cannot set platform settings after napa was already initialized");
+        //log.err("Cannot set platform settings after napa was already initialized");
         return;
     }
 
