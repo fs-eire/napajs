@@ -1,9 +1,0 @@
-bin
-build
-unittest
-
-# Exclude TypeScript source files.
-lib/*.ts
-lib/tsconfig.json
-test/*.ts
-test/tsconfig.json
