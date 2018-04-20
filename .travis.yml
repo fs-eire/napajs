@@ -64,7 +64,7 @@ matrix:
   # Node Stable (9.x)   Linux (Ubuntu Trusty 14.04)      G++7.x
   # 2018-04-19 : TODO - change to Ubuntu Xenial 16.04 once Travis CI supports.
   - os: linux
-    dist: trusty
+    dist: xenial
     node_js: '9'
     compiler: g++-7
     addons:
@@ -95,9 +95,5 @@ script:
 - |
   if [ -e ./core ]; then
     gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./core
-  fi
-- |
-  if [ -e ./lib/core ]; then
-    gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./lib/core
   fi
 - npm run unittest
