@@ -22,29 +22,29 @@ matrix:
   #                                                                                        - fs-eire
   #
   include:
-  # Node 6.x            Linux (Precise)     G++7.x
+  # Node 6.x            Linux (Ubuntu Precise 12.04)     G++7.x
   - os: linux
     dist: precise
     node_js: '6'
-    compiler: g++-7
+    compiler: g++-5
     addons:
       apt:
-        # The apt source 'ubuntu-toolchain-r-test' is for GCC 7+
+        # The apt source 'ubuntu-toolchain-r-test' is for G++ 5.x
         # The apt source 'george-edison55-precise-backports' is for CMake 3.2+
         sources:
         - ubuntu-toolchain-r-test
         - george-edison55-precise-backports
         packages:
-        - g++-7
+        - g++-5
         - cmake-data
         - cmake
     env:
-    - COMPILER_OVERRIDE="CXX=g++-7 CC=gcc-7"
-  # Node 6.x            OS X (Yosemite)     AppleClang 6.1
+    - COMPILER_OVERRIDE="CXX=g++-5 CC=gcc-5"
+  # Node 6.x            OS X (Yosemite)                  AppleClang 6.1
   - os: osx
     node_js: '6'
     osx_image: xcode6.4
-  # Node LTS (8.x)      Linux (Trusty)      G++7.x
+  # Node LTS (8.x)      Linux (Ubuntu Trusty 14.04)      G++7.x
   - os: linux
     dist: trusty
     node_js: '8'
@@ -57,12 +57,12 @@ matrix:
         - g++-7
     env:
     - COMPILER_OVERRIDE="CXX=g++-7 CC=gcc-7"
-  # Node LTS (8.x)      OS X (El Capitan)   AppleClang 7.3
+  # Node LTS (8.x)      OS X (El Capitan)                AppleClang 7.3
   - os: osx
     node_js: '8'
     osx_image: xcode7.3
-  # Node Stable (9.x)   Linux (Trusty)      G++7.x
-  # 2018-04-19 : TODO - change to Ubuntu 16.04 once Travis CI supports.
+  # Node Stable (9.x)   Linux (Ubuntu Trusty 14.04)      G++7.x
+  # 2018-04-19 : TODO - change to Ubuntu Xenial 16.04 once Travis CI supports.
   - os: linux
     dist: trusty
     node_js: '9'
@@ -75,7 +75,7 @@ matrix:
         - g++-7
     env:
     - COMPILER_OVERRIDE="CXX=g++-7 CC=gcc-7"
-  # Node Stable (9.x)   macOS (Sierra)      AppleClang 8.1
+  # Node Stable (9.x)   macOS (Sierra)                   AppleClang 8.1
   - os: osx
     node_js: '9'
     osx_image: xcode8.3
