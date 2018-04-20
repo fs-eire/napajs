@@ -4,74 +4,77 @@ matrix:
   exclude:
   # Disable the default build and use customized matrix only.
   - compiler: default
-  include:
-  # Node 6.x            Linux (Precise)     G++5.4.1
-  - os: linux
-    dist: precise
-    node_js: '6'
-    compiler: g++-5
-    addons:
-      apt:
-        # The apt source 'ubuntu-toolchain-r-test' is for GCC 5+
-        # The apt source 'george-edison55-precise-backports' is for CMake 3.2+
-        sources:
-        - ubuntu-toolchain-r-test
-        - george-edison55-precise-backports
-        packages:
-        - g++-5
-        - cmake-data
-        - cmake
-    env:
-    - COMPILER_OVERRIDE="CXX=g++-5 CC=gcc-5"
-  # Node 6.x            OS X (Yosemite)     AppleClang 6.1
-  - os: osx
-    node_js: '6'
-    osx_image: xcode6.4
-  # Node LTS (8.x)      Linux (Trusty)      G++6.3.0
-  # 2018-03-12 : There is a compability issue for the following platform/environment combination:
+  #
+  # 2018-04-19 : There is a compability issue for the following platform/compiler/environment combination:
   #                - Ubuntu 14.04
-  #                - Node 8.10.0 or later
-  #                - Node 9.3.0 or later
+  #                - GCC 5.x OR GCC 6.x
+  #                - Node 8.10.0+ OR Node 9.3.0+
   #              This issue causes a crash on Napa.js.
   #              Issue detail: https://github.com/nodejs/node/issues/17817
   #
   #              Current available workaround:
   #                1: Use Node 8.9.1 or 9.2.1
   #                2: Use binaries (libnapa.so and napa-binding.node) that compiled in Ubuntu 16.04
+  #                3: Use GCC 7.x+
   #
-  #              Since travis-CI does not support Ubuntu 16.04 yet, we locked Node version to 8.9.1
-  #              for now.
+  #              Since travis-CI does not support Ubuntu 16.04 yet, we will use GCC 7.x+ for all linux
+  #              build for now.
   #                                                                                        - fs-eire
+  #
+  include:
+  # Node 6.x            Linux (Precise)     G++7.x
+  - os: linux
+    dist: precise
+    node_js: '6'
+    compiler: g++-7
+    addons:
+      apt:
+        # The apt source 'ubuntu-toolchain-r-test' is for GCC 7+
+        # The apt source 'george-edison55-precise-backports' is for CMake 3.2+
+        sources:
+        - ubuntu-toolchain-r-test
+        - george-edison55-precise-backports
+        packages:
+        - g++-7
+        - cmake-data
+        - cmake
+    env:
+    - COMPILER_OVERRIDE="CXX=g++-7 CC=gcc-7"
+  # Node 6.x            OS X (Yosemite)     AppleClang 6.1
+  - os: osx
+    node_js: '6'
+    osx_image: xcode6.4
+  # Node LTS (8.x)      Linux (Trusty)      G++7.x
   - os: linux
     dist: trusty
-    node_js: '8.9.1'
-    compiler: g++-6
+    node_js: '8'
+    compiler: g++-7
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
         packages:
-        - g++-5
+        - g++-7
     env:
-    - COMPILER_OVERRIDE="CXX=g++-5 CC=gcc-5"
+    - COMPILER_OVERRIDE="CXX=g++-7 CC=gcc-7"
   # Node LTS (8.x)      OS X (El Capitan)   AppleClang 7.3
   - os: osx
     node_js: '8'
     osx_image: xcode7.3
-  # Node Stable (9.x)   Linux (Trusty)      G++6.3.0
-  # 2017-12-18 : Locked node.js version to 9.2.1. See above.
+  # Node Stable (9.x)   Linux (Trusty)      G++7.x
+  # 2018-04-19 : TODO - change to Ubuntu 16.04 once Travis CI supports.
   - os: linux
     dist: trusty
-    node_js: '9.2.1'
-    compiler: g++-6
+    node_js: '9'
+    compiler: g++-7
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
         packages:
-        - g++-6
+        - g++-7
     env:
-    - COMPILER_OVERRIDE="CXX=g++-6 CC=gcc-6"
+    - COMPILER_OVERRIDE="CXX=g++-7 CC=gcc-7"
   # Node Stable (9.x)   macOS (Sierra)      AppleClang 8.1
   - os: osx
     node_js: '9'
