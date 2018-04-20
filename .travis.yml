@@ -83,6 +83,8 @@ matrix:
 before_install:
 - |
   if [ $TRAVIS_OS_NAME == linux ]; then
+    sudo apt-get install -y gdb
+    ulimit -c unlimited
     export ${COMPILER_OVERRIDE}
   fi
 install:
@@ -90,4 +92,12 @@ install:
 - npm install --no-fetch
 script:
 - npm test
+- |
+  if [ -e ./core ]; then
+    gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./core
+  fi
+- |
+  if [ -e ./lib/core ]; then
+    gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" $(which node) ./lib/core
+  fi
 - npm run unittest
