@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 var log = require('npmlog');
-var fileExistsSync = require('fs').existsSync;
+var fs = require('fs');
 var path = require('path');
+var os = require('os');
 var execSync = require('child_process').execSync;
 
 // Default command
@@ -62,6 +63,23 @@ if (!skipBuild) {
     }
 }
 
+// ==== Look for node ====
+//
+// NOTE: 0.4.x-canary requires a patched node executable to run, so we
+//       need to prepare it.
+//       This logic should only apply on version 0.4.x-canary, which
+//       only runs on a patched-node.
+if (errorCode == 0) {
+    var nodeExeFileName = (os.platform() === 'win32') ? 'node.exe' : 'node';
+    var nodeExeFilePath = path.join(__dirname, '..', 'bin', nodeExeFileName);
+    if (!fs.existsSync(nodeExeFilePath)) {
+        log.info('NAPA_INSTALL', `Start to prepare ${nodeExeFilePath}.`);
+        if (process.env.hasOwnProperty('NAPAJS_NODE_EXE')) {
+            fs.copyFileSync(process.env['NAPAJS_NODE_EXE'], nodeExeFilePath);
+        }
+    }
+}
+
 // ==== Running "npm run prepare" explicitly ====
 //
 // NOTE: Napa.js has the "prepare" script, which is supposed to run by NPM
@@ -79,7 +97,7 @@ if (!skipPrepare && errorCode == 0) {
 
         // Skip this step if we already have the TypeScripts compiled.
         var mainFilePath = path.join(__dirname, '..', process.env['npm_package_main']);
-        if (fileExistsSync(mainFilePath) ) {
+        if (fs.existsSync(mainFilePath) ) {
             log.info('NAPA_INSTALL', 'already have compiled typescripts. skip running "npm run prepare".');
         }
         else {

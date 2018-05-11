@@ -1,7 +1,7 @@
 {
   "name": "napajs",
   "description": "Napa.js is a multi-threaded JavaScript runtime built on V8",
-  "version": "0.2.3",
+  "version": "0.4.0-canary",
   "author": "napajs",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
@@ -11,7 +11,7 @@
     "url": "https://github.com/Microsoft/napajs.git"
   },
   "binary": {
-    "module_name": "napa-binding",
+    "module_name": "napa",
     "module_path": "./bin/",
     "host": "https://github.com/Microsoft/napajs/releases/download/",
     "remote_path": "{version}"
