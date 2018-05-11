@@ -2,7 +2,7 @@
 vNext is a version with new worker implementation. In Napa.js vNext, napa worker loads and initializes node.js context, which enables most of node.js APIs and addon support.
 
 ## Features in vNext
-- Better Node.js API compatibility. Most of [Node APIs](https://nodejs.org/api/index.html) will be supported by default. See [this](link-to-issue:TBD) for compatibility tracking.
+- Better Node.js API compatibility. Most of [Node APIs](https://nodejs.org/api/index.html) will be supported by default. See [this](./node-api-compatibility.md) for compatibility tracking.
 - Native addon support. All native addon can be loaded in worker by default, unless it's implemented non-thread-safely.
 - Back compatibility. Napa.js API should not be changed and previous napa.js script should continue to work.
 - Resolved incompatibility issue: [#16658](https://github.com/nodejs/node/issues/16658).
@@ -67,7 +67,14 @@ Refer to node [Bootstrapping Guide](https://github.com/nodejs/node/blob/master/t
   - Run command `npm install --no-fetch` at the root directory of local repo.
 
 ## Use patched node:
-Alias `napa-node` is created to call the patched-node instead of official node build.
-```
-> ./node_modules/.bin/napa-node <arguments>
-```
+Update environment variable `PATH` before using the patched node:
+
+> Windows:
+  ```
+  > set PATH=<your-napa-root-folder>\bin;%PATH%
+  ```
+> Linux & macOS:
+  ```
+  > export PATH=<your-napa-root-folder>/bin:$PATH
+  ```
+`<your-napa-root-folder>` should be a full path, something like `D:\code\my-project\node_modules\napajs\bin` (Windows) or `/Users/name/code/my-project/node_modules/napajs/bin` (macOS)
